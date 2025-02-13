@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-image: url('images/background1.gif'); /* Set the GIF as background */
+            background-size: cover; /* Make the GIF cover the entire page */
+            background-position: center; /* Center the GIF on the page */
+            background-attachment: fixed; /* Ensure the background stays fixed while scrolling */
+            margin: 0; /* Remove default body margin */
+            height: 100vh; /* Ensure the body takes up full viewport height */
+        }
+
+        .container {
+            margin-top: 100px;
+            position: relative;
+            z-index: 1; /* Keep content above the background */
+        }
+
+        .btn {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 20px;
+            border: none;
+            cursor: pointer;
+            z-index: 2; /* Ensure buttons appear above background */
+        }
+
+        .yes {
+            background-color: red;
+            color: white;
+        }
+
+        .no {
+            background-color: gray;
+            color: white;
+        }
+
+        h1 {
+            z-index: 2; /* Ensure text is above the background */
+            color: white; /* Make text color visible on GIF background */
+        }
+    </style>
+</head>
+<body>
+    <!-- Audio Background -->
+    <audio id="background-audio" autoplay loop>
+        <source src="audio/l.mp3" type="audio/mp3">
+        <source src="audio/l.mp3" type="audio/ogg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="container">
+        <h1>Will you be my Valentine?</h1>
+        <button class="btn yes" onclick="navigateToPage('yes.html')">Yes</button>
+        <button class="btn no" onclick="navigateToPage('no.html')">No</button>
+    </div>
+
+    <script>
+        // Play audio instantly on page load
+        const audio = document.getElementById("background-audio");
+
+        // Ensure audio continues playing across pages
+        function navigateToPage(page) {
+            localStorage.setItem("audioPlaying", "true"); // Store audio state
+            window.location.href = page; // Redirect to the next page
+        }
+
+        // When the page loads, check if the audio should continue playing
+        window.onload = function() {
+            if (localStorage.getItem("audioPlaying") === "true") {
+                audio.play();  // Play the audio if it's marked as playing
+            } else {
+                audio.play();  // Start playing the audio when the page loads
+                localStorage.setItem("audioPlaying", "true"); // Mark it as playing
+            }
+        };
+    </script>
+</body>
+</html>
